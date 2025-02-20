@@ -13,11 +13,11 @@ Write a program that calculates the area of a rectangle using an inline function
 ### Problem 2: Name Mangling Demonstration
 
 #### Task:
-Write a program that defines two functions with the same name but different parameters in C++. Compile the program and inspect the symbol names using `nm` or `objdump` (Linux) or `dumpbin` (Windows).
+Write a program that defines two functions with the same name but different parameters in C++. Compile the program and inspect the symbol names using `nm`.
 
 #### Requirements:
 - Define two overloaded functions: `void print(int)` and `void print(double)`.
-- Compile the program and inspect the decorated names using `nm (objdump) a.out | grep print` (or equivalent on Windows - `dumpbin`).
+- Compile the program and inspect the decorated names using `nm a.out | grep print`.
 - Explain the differences in the generated names.
 
 ---
