@@ -30,6 +30,8 @@
 - Използвайте `#ifndef`, `#define` и `#endif` в заглавния файл за предпазване от многократно включване.
 - В `CMakeLists.txt` на библиотеката използвайте `add_library(mathlib STATIC mathlib.cpp)`.
 - В `CMakeLists.txt` на основния проект използвайте `find_library` и `target_link_libraries`.
+- Използвайте `cmake -S . -B build`, за да създадете необхидимите build файлове и за двата проекта
+- Използвайте `cmake --build build`, за да се компиларат и двата проекта
 
 ### Примерна структура на проекта:
 ```
