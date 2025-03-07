@@ -13,4 +13,4 @@ C++ is awesome and powerful.
 Изход: 5
 
 #### Подсказка:
-* Използвайте `std::ifstream` за четене и `std::stringstream` за разделяне на думите.
+* Използвайте `std::ifstream` за четене.
