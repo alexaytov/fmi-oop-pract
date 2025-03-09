@@ -13,4 +13,11 @@ C++ is awesome and powerful.
 Изход: 5
 
 #### Подсказка:
-* Използвайте `std::ifstream` за четене.
+* Използвайте `std::ifstream` за четене
+* Можете да четете всяка дума от файла като използвате `file >> word`
+* Може да разделите даден текст на парчета използвайки `stringstream`:
+    ```cpp
+    std::stringstream ss(content);
+    std::getline(ss, item, delimiter)
+    std::cout << item
+    ```
