@@ -174,7 +174,7 @@ int main() {
     outFile.write(reinterpret_cast<char*>(numbers), sizeof(numbers));
 
     // write a single number
-    outFile.write((char*)numbers[0], sizeof(numbers[0]));
+    outFile.write((char*)&numbers[0], sizeof(numbers[0]));
 
     outFile.close();
     return 0;
