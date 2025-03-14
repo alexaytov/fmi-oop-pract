@@ -3,6 +3,9 @@
 
 using namespace std;
 
+/// <summary>
+/// Реализация на алгоритъма за сортиране по пряка селекция за масиви:
+/// </summary>
 void SelectionSortArray(int a[], int n) {
 
 	// Външният цикъл минава през всеки един от елементите, без последния:
@@ -24,6 +27,10 @@ void SelectionSortArray(int a[], int n) {
 	// На стъпка i = n - 2, алгоритъмът завършва и всички елементи са сортирани
 }
 
+/// <summary>
+/// Помощна функция за инициализиране на данни в двоичен файл;
+/// записваме данните от съответния масив последователно във файла.
+/// </summary>
 void InitializeTestData() {
 
 	ofstream fileOutputStream("file.bin", ios::binary);
