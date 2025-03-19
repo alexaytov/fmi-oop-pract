@@ -1,0 +1,247 @@
+# Въведение в Unit Testing: Същност и Предназначение
+
+Преди да навлезем в детайлите на unit testing, нека си представим, че сте построили сложна машина от много малки части. Как бихте проверили дали цялата машина работи правилно? Бихте ли тествали всяка част поотделно, преди да ги сглобите заедно? Точно това е идеята зад unit testing в програмирането.
+
+## Какво представлява Unit Testing?
+
+Unit testing е процес на тестване на най-малките функционални единици на кода - обикновено функции, методи или класове. Целта е да се провери дали всяка отделна "единица" код работи точно според очакванията, независимо от останалата част на програмата[^1][^7].
+
+Когато говорим за "unit" (единица), имаме предвид най-малката тестваема част от даден софтуер, която обикновено има един или няколко входа и един изход. В обектно-ориентираното програмиране, това често е метод или клас[^1][^3].
+
+### Ключови Характеристики на Unit Tests:
+
+- **Изолация** - тества се само конкретната единица код, без зависимости към външни системи
+- **Автоматизация** - тестовете могат да се изпълняват автоматично
+- **Бързина** - unit тестовете обикновено са бързи за изпълнение
+- **Повторяемост** - при едни и същи условия, тестът винаги дава същия резултат[^5]
+
+
+## Защо е важно Unit Testing?
+
+Unit testing е първото ниво на тестване в софтуерната разработка и има няколко ключови предназначения[^7]:
+
+### 1. Ранно откриване на грешки
+
+Откриването на грешки още в началото на разработката е много по-евтино и лесно, отколкото след като кодът е интегриран в по-големи системи[^1][^7].
+
+### 2. Подобряване на дизайна на кода
+
+Писането на тестове насърчава създаването на по-модулен и лесен за поддръжка код. Ако е трудно да напишете тест за даден код, вероятно дизайнът на кода може да се подобри[^5].
+
+### 3. Документация
+
+Unit тестовете служат като жива документация, показваща как се очаква да работи кодът[^1].
+
+### 4. Улесняване на промените
+
+С добро покритие от тестове, разработчиците могат да правят промени в кода с увереност, че няма да нарушат съществуващата функционалност[^1].
+
+### 5. Повишаване на качеството
+
+Цялостното качество на софтуера се подобрява, тъй като тестовете помагат за идентифициране на проблеми, преди да достигнат до потребителите[^3][^7].
+
+## Как работят Unit Tests?
+
+Unit testing обикновено включва три основни фази[^7]:
+
+1. **Планиране** - определяне кои части от кода трябва да се тестват
+2. **Писане на тестови случаи** - създаване на кода за тестване
+3. **Изпълнение на тестовете** - стартиране на тестовете и анализ на резултатите
+
+Всеки тест обикновено следва модела "AAA"[^3]:
+
+- **Arrange** (Подготовка) - подготвяне на данните и условията за теста
+- **Act** (Действие) - извикване на функцията, която тестваме
+- **Assert** (Проверка) - проверка дали резултатът отговаря на очакванията
+
+
+## Прост пример за Unit Test в C++
+
+Нека разгледаме една проста функция за събиране на две числа и как бихме я тествали:
+
+```cpp
+// Function to test
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+А сега нека напишем прост unit test за тази функция:
+
+```cpp
+// Simple test without any framework
+void test_add() {
+    // Test case 1: positive numbers
+    if (add(2, 3) == 5) {
+        std::cout << "Test passed: 2 + 3 = 5" << std::endl;
+    } else {
+        std::cout << "Test failed: 2 + 3 should be 5" << std::endl;
+    }
+    
+    // Test case 2: negative numbers
+    if (add(-1, -1) == -2) {
+        std::cout << "Test passed: -1 + (-1) = -2" << std::endl;
+    } else {
+        std::cout << "Test failed: -1 + (-1) should be -2" << std::endl;
+    }
+    
+    // Test case 3: zero and positive
+    if (add(0, 5) == 5) {
+        std::cout << "Test passed: 0 + 5 = 5" << std::endl;
+    } else {
+        std::cout << "Test failed: 0 + 5 should be 5" << std::endl;
+    }
+}
+
+int main() {
+    test_add();
+    return 0;
+}
+```
+
+Това е най-простият вариант на unit test, без използване на специализирана библиотека. В реалния свят обаче, разработчиците обикновено използват тестови рамки (frameworks) като Google Test, Catch2 или Doctest[^6].
+
+## Използване на тестова рамка (framework)
+
+Ето как изглежда същият тест с използване на Catch2 framework[^4][^6]:
+
+```cpp
+// Using Catch2 framework
+#include <catch2/catch.hpp>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+TEST_CASE("Addition works correctly", "[math]") {
+    SECTION("Positive numbers") {
+        REQUIRE(add(2, 3) == 5);
+    }
+    
+    SECTION("Negative numbers") {
+        REQUIRE(add(-1, -1) == -2);
+    }
+    
+    SECTION("Zero and positive") {
+        REQUIRE(add(0, 5) == 5);
+    }
+}
+```
+
+
+## Пример с по-сложна функционалност
+
+Нека разгледаме малко по-сложен пример - функция, която проверява дали една дума е палиндром (чете се еднакво отпред и отзад):
+
+```cpp
+// Function to check if a string is a palindrome
+bool isPalindrome(const std::string& str) {
+    if (str.empty()) return true;
+    
+    int left = 0;
+    int right = str.length() - 1;
+    
+    while (left < right) {
+        if (str[left] != str[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    
+    return true;
+}
+```
+
+И unit тест за тази функция:
+
+```cpp
+// Test for palindrome function
+void test_palindrome() {
+    // Test case 1: empty string
+    if (isPalindrome("") == true) {
+        std::cout << "Test passed: Empty string is a palindrome" << std::endl;
+    } else {
+        std::cout << "Test failed: Empty string should be a palindrome" << std::endl;
+    }
+    
+    // Test case 2: single character
+    if (isPalindrome("a") == true) {
+        std::cout << "Test passed: Single character is a palindrome" << std::endl;
+    } else {
+        std::cout << "Test failed: Single character should be a palindrome" << std::endl;
+    }
+    
+    // Test case 3: palindrome
+    if (isPalindrome("radar") == true) {
+        std::cout << "Test passed: 'radar' is a palindrome" << std::endl;
+    } else {
+        std::cout << "Test failed: 'radar' should be a palindrome" << std::endl;
+    }
+    
+    // Test case 4: non-palindrome
+    if (isPalindrome("hello") == false) {
+        std::cout << "Test passed: 'hello' is not a palindrome" << std::endl;
+    } else {
+        std::cout << "Test failed: 'hello' should not be a palindrome" << std::endl;
+    }
+}
+```
+
+
+## Принципи на добрите Unit Tests
+
+За да бъдат ефективни, unit тестовете трябва да следват няколко важни принципа[^5]:
+
+### 1. Изолация на компонентите
+
+Тестовете трябва да се фокусират само върху тестваната единица, изолирайки я от останалата част на системата. Това може да се постигне чрез използване на "mock" обекти и "stubs", които симулират поведението на външните зависимости[^1][^5].
+
+### 2. Повторяемост и консистентност на резултатите
+
+Тестът трябва да дава едни и същи резултати всеки път, когато се изпълнява при същите условия[^5].
+
+### 3. Бързина на изпълнение
+
+Unit тестовете трябва да се изпълняват бързо, тъй като това позволява често изпълнение по време на разработката[^5].
+
+### 4. Независимост
+
+Всеки тест трябва да бъде независим от другите тестове и да може да се изпълнява самостоятелно[^5].
+
+## Best Practices за Unit Testing
+
+Ето няколко добри практики, които да следвате при писане на unit тестове[^1][^5][^7]:
+
+1. **Пишете тестове рано** - дори преди да напишете самия код (Test-Driven Development)
+2. **Тествайте критичните функционалности** - не е нужно да тествате всеки ред код
+3. **Именувайте тестовете ясно** - името на теста трябва да описва какво тества
+4. **Един тест за едно нещо** - всеки тест трябва да проверява само едно очаквано поведение
+5. **Използвайте автоматизация** - интегрирайте тестовете в процеса на разработка
+6. **Пишете прости и четими тестове** - тестовете трябва да са лесни за разбиране
+
+## Заключение
+
+Unit testing е фундаментална практика в софтуерната разработка, която помага да се гарантира качеството на кода. За начинаещи програмисти, това може да изглежда като допълнителна работа, но ползите от добре написаните unit тестове са значителни в дългосрочен план. Те не само помагат за откриване на грешки рано, но и насърчават добри практики в програмирането, като модулен дизайн и ясна документация.
+
+Започнете с прости тестове, като тези в примерите по-горе, и постепенно усвоявайте по-сложни техники за тестване. Най-важното е да включите тестването като част от вашия процес на разработка от самото начало.
+
+## Източници[^1] Unit Testing: Definition, Examples, and Critical Best Practices, https://brightsec.com/blog/unit-testing/[^3] What is the objective of unit testing?, https://www.qodo.ai/question/what-is-the-objective-of-unit-testing/[^4] kudaba/simpletest: A c++ unit test framework as simple as I ... - GitHub, https://github.com/kudaba/simpletest[^5] Unit Testing: Principles, Benefits \& 6 Quick Best Practices - Codefresh, https://codefresh.io/learn/unit-testing/[^6] How to unit test : r/cpp_questions - Reddit, https://www.reddit.com/r/cpp_questions/comments/sobl57/how_to_unit_test/[^7] What is Unit Testing? Definition from WhatIs.com - TechTarget, https://www.techtarget.com/searchsoftwarequality/definition/unit-testing
+
+<div style="text-align: center">⁂</div>
+
+[^1]: https://brightsec.com/blog/unit-testing/
+
+[^2]: https://www.softwaretestingstuff.com/c-unit-testing/
+
+[^3]: https://www.qodo.ai/question/what-is-the-objective-of-unit-testing/
+
+[^4]: https://github.com/kudaba/simpletest
+
+[^5]: https://codefresh.io/learn/unit-testing/
+
+[^6]: https://www.reddit.com/r/cpp_questions/comments/sobl57/how_to_unit_test/
+
+[^7]: https://www.techtarget.com/searchsoftwarequality/definition/unit-testing
+
+[^8]: https://aws.amazon.com/what-is/unit-testing/
