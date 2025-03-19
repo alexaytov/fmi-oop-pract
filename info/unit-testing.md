@@ -226,8 +226,6 @@ Unit testing е фундаментална практика в софтуерн�
 
 Започнете с прости тестове, като тези в примерите по-горе, и постепенно усвоявайте по-сложни техники за тестване. Най-важното е да включите тестването като част от вашия процес на разработка от самото начало.
 
-## Източници[^1] Unit Testing: Definition, Examples, and Critical Best Practices, https://brightsec.com/blog/unit-testing/[^3] What is the objective of unit testing?, https://www.qodo.ai/question/what-is-the-objective-of-unit-testing/[^4] kudaba/simpletest: A c++ unit test framework as simple as I ... - GitHub, https://github.com/kudaba/simpletest[^5] Unit Testing: Principles, Benefits \& 6 Quick Best Practices - Codefresh, https://codefresh.io/learn/unit-testing/[^6] How to unit test : r/cpp_questions - Reddit, https://www.reddit.com/r/cpp_questions/comments/sobl57/how_to_unit_test/[^7] What is Unit Testing? Definition from WhatIs.com - TechTarget, https://www.techtarget.com/searchsoftwarequality/definition/unit-testing
-
 <div style="text-align: center">⁂</div>
 
 [^1]: https://brightsec.com/blog/unit-testing/
