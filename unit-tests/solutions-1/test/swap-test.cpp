@@ -35,15 +35,18 @@ TEST_CASE( "Swap() behaves correctly on non null values" ) {
     REQUIRE( var1 == original2 );
     REQUIRE( var2 == original1 );
 
-    int original1 = -59497; 
-    int original2 = -5715;
-    int var1 = original1, var2 = original2;
+    original1 = -59497; 
+    original2 = -5715;
+    var1 = original1; 
+    var2 = original2;
     Swap( &var1, &var2 );
     REQUIRE( var1 == original2 );
     REQUIRE( var2 == original1 );
     
-    int original1 = -36660, original2 = 17813;
-    int var1 = original1, var2 = original2;
+    original1 = -36660; 
+    original2 = 17813;
+    var1 = original1; 
+    var2 = original2;
     Swap( &var1, &var2 );
     REQUIRE( var1 == original2 );
     REQUIRE( var2 == original1 );
