@@ -1,6 +1,97 @@
-# Задачи по Обектно-ориентирано програмиране с C++
+# Задачи по Обектно-ориентирано програмиране с C++ (наследяване)
 
-## Задача 1: Система за управление на библиотека
+## Задача 1: Ред на изпълнение на каноничната четворка
+
+Изпълнете следната програма и се опитайте да си обясните изхода от нея. Следете внимателно реда на изпълнение на функциите.
+
+```cpp
+#include <iostream>
+
+class Base {
+
+    public:
+        Base();
+        Base(const Base& other);
+        ~Base();
+        Base& operator=(const Base& other);
+};
+
+class Derived : public Base {
+
+    public:
+        Derived();
+        Derived(const Derived& other);
+        ~Derived();
+        Derived& operator=(const Derived& other);
+};
+
+Base::Base() {
+
+    std::cout << "Base()\n";
+}
+
+Base::~Base() {
+
+    std::cout << "~Base()\n";
+}
+
+Base::Base(const Base& other) {
+
+    std::cout << "Base() - Copy\n";
+}
+
+Base & Base::operator=(const Base& other) {
+
+    std::cout << "Base() - operator=\n";
+    return *this;
+}
+
+Derived::Derived() : Base() {
+
+    std::cout << "Derived()\n";
+}
+
+Derived::~Derived() {
+
+    std::cout << "~Derived()\n";
+}
+
+Derived::Derived(const Derived& other): Base() {
+
+    std::cout << "Derived() - Copy\n";
+}
+
+Derived& Derived::operator=(const Derived& other) {
+
+    std::cout << "Derived() - operator=\n";
+    if (this != &other) Base::operator=(other);
+    return *this;
+}
+
+int main() {
+
+    Base base1;
+    Base base2 = base1;
+    Base base3;
+    base3 = base2;
+
+    std::cout << "-----------------------------------\n";
+
+    Derived derived1;
+    Derived derived2 = derived1;
+    Derived derived3;
+    derived3 = derived2;
+
+    std::cout << "------------------------------------\n";
+
+    Derived derived4;
+    Base base4 = dynamic_cast<Base &>(derived4);
+
+    return 0;
+}
+```
+
+## Задача 2: Система за управление на библиотека
 
 **Цел**: Разработете проста система за управление на библиотека, демонстрираща наследяване и достъп до наследени компоненти.
 
@@ -28,7 +119,79 @@
 - Добавете съобщения в конструкторите и деструкторите, за да наблюдавате реда на извикване
 - Спомнете си как се получава достъп до protected членове в наследниците
 
-## Задача 2: Йерархия на геометрични фигури
+## Задача 3 (повишена трудност): Нива и подходящ вид на наследяване
+
+1. Реализирайте следния клас, представляващ триъгълник. Хвърлете подходящо изключение в конструктора и в мутаторите (setter-ите), в случай, че е подадена невалидна стойност за страна на триъгълника (стойността е неположително и/или не е спазено правилото на триъгълника):
+
+```cpp
+class Triangle {
+
+    public:
+
+        Triangle( double, double double );
+
+        void SetSideA( double );
+        void SetSideB( double );
+        void SetSideC( double );
+
+        double GetSideA() const;
+        double GetSideB() const;
+        double GetSideC() const;
+
+        double GetPerimeter() const;
+
+    private:
+
+        // Потенциална помощна функция за валидиране на правилото на триъгълника:
+        bool doNotFormValidTriangle( double side1, double side2, double side3 );
+
+        double sideA, sideB, sideC;
+};
+```
+
+2. Реализирайте следния клас, представляващ равнобедрен триъгълник, който нследява предходния. Помислете как правилно да го реализирате, включително какъв вид наследяване да приложите:
+
+```cpp
+class TriangleIsosceles : /* (помислете за вида наследяване) */ Triangle {
+    
+    public:
+
+        // Конструктор, който приема като аргументи съответно дължините на бедрата и на основата:
+        TriangleIsosceles( double legLength, double baseLength );
+
+        void SetLegLength( double );
+        void SetBaseLength( double );
+
+        double GetLegLength() const;
+        double GetBaseLength() const;
+
+        double GetPerimeter() const;
+};
+```
+
+3. Реализирайте следния клас, представляващ равностранен триъгълник, който наследява равнобедрения. Отново помислете как правилно да го реализирате, включително какъв вид наследяване да приложите:
+
+```cpp
+class TriangleEquilateral : /* (помислете за вида наследяване) */ TriangleIsosceles  {
+
+    public:
+
+        // Конструктор, който приема като аргумент дължината на страната на тригълника:
+        TriangleEquilateral( double side );
+
+        void SetSide( double );
+
+        double GetSide() const;
+
+        double GetPerimeter() const;
+};
+```
+
+4. Реализирайте фунцкия `void PrintTriangle( const Triangle &triangle )`, която извежда страните и обиколката на триъгълника.
+
+5. Модифицирайте горната фунцкия, така че да изежда конкретна информация, в случай, че триъгълника се окаже обикновен, равнобедрен, или равностранен. За целта проверете дали аргумента може да се преобразува до някой от дъщерните класове на базовия `Triangle` (за целта използвайте `dynamica_cast`).
+
+## Задача 4: Йерархия на геометрични фигури
 
 **Цел** : Създайте йерархия на геометрични фигури, демонстрираща множествено наследяване и диамантния проблем.
 
@@ -52,7 +215,7 @@
 * Демонстрирайте какво би се случило без виртуално наследяване
 * Добавете съобщения във всички конструктори и деструктори, за да видите реда на извикване
 
-## Задача 3: Система за електронни устройства
+## Задача 5: Система за електронни устройства
 
 **Цел**: Създайте система за управление на устройства, демонстрираща upcast/downcast и dynamic_cast.
 
