@@ -37,6 +37,9 @@ class LinkedList {
         // както и на ново-създадения да сочи към стария директен наследник на текущия:
         void InsertAfterCurrent( const T &newElement );
 
+        // Въвежда нов елемент в началото на списъка:
+        void PushUpFront( const T &newFrontElement );
+
         // Изтрива първия елемент на списъка. 
         // Трябва да укажете на полето 'front' да сочи директния наследник на стария първи елемент:
         void DeleteFront();
