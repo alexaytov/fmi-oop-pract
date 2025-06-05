@@ -25,6 +25,9 @@ class LinkedList {
         // Задава полето current да сочи първия елемент на списъка:
         void ResetCurrent() { current = front; }
 
+        // Връща истина, ако полето current сочи последния елемент в списъка:
+        bool IsCurrentAtTheBack() { return current->Link == nullptr; }
+
         // Премества полето current с positions на брой позиции напред в списъка
         // (помислете, как да подходите, ако указателят достигне последния елемент):
         void IterateCurrent( unsigned positions = 1 );
